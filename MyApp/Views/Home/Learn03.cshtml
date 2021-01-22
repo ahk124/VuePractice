@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul>
+            <li v-for="fullName in fullNames">{{fullName}}</li>
+        </ul>
+        <br/>
+        <ul>
+            <li v-for="(item,index) of allOfColor" v-bind:style="{color:item}" :key="index">{{item}}
+                {{index+1}}</li>
+        </ul>
+        <br/>
+        <ul>
+            <li v-for="person in allOfPeople">
+                <p>{{person?.fullName}}</p>
+                @*
+                <h5>{{person.age}}</h5>
+                <i>{{person.description}}</i>
+                *@
+                <button type="button" v-on:click="ShowMe(person)">Detail</button>
+            </li>
+        </ul>
+    </div>
+</div>
+@section Vues {
+    <script>
+            const allOfColor= [`red`, `blue`, `green`]
+            const allOfPeople= [
+                {
+                    fullName: `Full Name (1)`,
+                    age: 16,
+                    description: `Description (1)`
+                }, {
+                    fullName:null,
+                    age: 27,
+                    description: `Description (2)`
+                }, {
+                    fullName: `Full Name (3)`,
+                    age: 21,
+                    description: `Description (3)`
+                }, {
+                    fullName: `Full Name (4)`,
+                    age: null,
+                    description: `Description (4)`
+                }
+            ]
+            const allOfFullname= [`Full Name (1)`, `Full Name (2)`,null, `Full Name (3)`]
+            const app = new Vue({
+                el: `#app`,
+                data: {
+                    colors:allOfColor,
+                    people:allOfPeople,
+                    fullNames:allOfFullname
+                },
+               
+                methods:{
+                    myalert(v){
+                        alert("Hi "+v)
+                    },
+                    ShowMe:function(item){
+                           let message=`fullname is ${item?.fullName}\nage is ${item?.age}\ndescription is ${item?.description}`  
+                            this.myalert(message)
+                    }
+                }
+
+            })
+        </script>
+}

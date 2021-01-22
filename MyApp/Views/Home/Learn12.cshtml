@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        {{title}}
+        <hr/>
+            <todo-items></todo-items>
+    </div>
+</div>
+@section Vues{
+<script>
+    Vue.component(`todo-item`, {template: `<li>hi every one</li>`})
+    Vue.component(
+        `todo-items`,
+        {template: `<ul>
+        <todo-item></todo-item>
+        <todo-item></todo-item>
+        <todo-item></todo-item>
+                    </ul>`}
+    )
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+        }
+    })
+</script>
+}

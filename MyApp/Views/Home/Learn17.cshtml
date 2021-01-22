@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-12">
+     {{title}} 
+     </div>
+     <dtx-btn @@buttom-clicked="internalClicked($event)" :name-btn="`Click me`"></dtx-btn>
+     <br />
+     <div class="clearfix"></div>
+     <dtx-btn-two @@buttom-clicked="internalClickedTwo($event)" :name-btn="`Click me Two`"></dtx-btn-two>
+</div>
+@section Vues{
+<script> 
+    Vue.component(`dtx-btn`,{
+        props:[`nameBtn`],
+        data:function(){
+           return({
+                message:`Hi Jakeshan`
+           })
+        },
+        template:`
+        <div>
+        <input type="text" v-model="message" />
+        <button class="btn btn-primary" @@click="doSomething()">{{nameBtn}}</button>
+        </div>`,
+        created:function(){
+
+        },
+        methods:{
+            doSomething:function(){
+                this.$emit("buttom-clicked",this.message)
+            }
+            
+        }
+
+    })
+     Vue.component(`dtx-btn-two`,{
+        props:[`nameBtn`],
+        data:function(){
+           return({
+                message1:null,
+                message2:null
+           })
+        },
+       methods:{
+            doSomething:function(){
+             let result = {
+                    a: this.message1,
+                    b: this.message2
+                }
+                this.$emit("buttom-clicked",result)
+        },
+       },
+        template:`
+        <div>
+        <input type="text" v-model="message1" />
+        <input type="text" v-model="message2" />
+        <button class="btn btn-primary" @@click="doSomething()">{{nameBtn}}</button>
+        </div>`,
+     })
+    const app = new Vue({
+    el: `#app`,
+    data: {
+        title: `Hello`
+    },
+    methods:{
+        internalClicked:function(e){
+            alert(e)
+        },
+        internalClickedTwo:function(e){
+            alert(`${e.a}    -      ${e.b} `)
+        }
+    }
+}) 
+</script>
+}
+

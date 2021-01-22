@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        {{title}}
+    </div>
+            <label for="inputFirstName">Write a message</label>
+            <input
+                type="text"
+                id="inputFirstName"
+                v-model="person.firstname"/>
+        </div>
+        <br/>
+        <display-input-message :external-message="person"></display-input-message>
+   
+
+</div>
+
+@section Vues{
+<script> 
+     Vue.component(`display-input-message`,{
+        props:['externalMessage'],
+        data: function() {
+
+				return ({
+
+				})
+
+			},
+        template:`
+        <div>
+        <input type="text" v-model="externalMessage.firstname"/>
+        <br/>
+        hello : {{externalMessage.firstname}}
+        </div>`
+    })
+    const app = new Vue({
+    el: `#app`,
+    data: {
+        title: `Hello`,
+        message:null,
+        person:{
+            firstname:`Amir Joon`
+        }
+    }
+}) 
+</script>
+}

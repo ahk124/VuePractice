@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" v-model="hasClass1"/>
+        has Class 1
+        <div :class="{class1 : hasClass1}">Hello world (1)</div>
+        <br/>
+        <input type="checkbox" v-model="hasClass2"/>
+        has Class 2
+        <div :class="{class2 : hasClass2}">Hello world (2)</div>
+        <br/>
+        <br/>
+        <input type="checkbox" v-model="hasClass1"/>
+        has Class 1
+        <input type="checkbox" v-model="hasClass2"/>
+        has Class 2
+        <div :class="{class1 : hasClass1,class2 : hasClass2}">Hello world (3)</div>
+        <br/>
+        <button type="button" class="btn btn-primary" @@click="toggleClass1()">toggle</button>
+        <div :class="cssClass">Hello world (4)</div>
+
+        <br/>
+        <div :class="[cssClass1,cssClass2]">Hello world (5)</div>
+        <br/>
+        <button type="button" class="btn btn-primary" @@click="toggleClass2()">toggle
+        </button>
+        <div :class="[someBoolean ? cssClass1:cssClass2]">Hello world (6)</div>
+    </div>
+</div>
+@section Vues{
+<script>
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            hasClass1: false,
+            hasClass2: false,
+            hasClass3: false,
+            cssClass: `class1`,
+            cssClass1: `class1`,
+            cssClass2: `class2`,
+            someBoolean:false,
+        },
+        methods: {
+            toggleClass1: function () {
+                if (this.cssClass === `class1`) 
+                    this.cssClass = `class2`
+                else 
+                    this.cssClass = `class1`
+            },
+            toggleClass2:function () {
+                this.someBoolean=~this.someBoolean
+            }
+        }
+    })
+</script>
+}
+
+@section Styles {
+    <style>
+        div.class1{
+            color:red
+        }
+        div.class2{
+            font-weight: bold !important;
+        }
+    </style>
+}

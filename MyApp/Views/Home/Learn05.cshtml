@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col">
+            <h1>{{title}}</h1>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary">
+                Count of basket
+                <span class="badge badge-light">{{CountBasket()}}</span>
+            </button>
+        </div>
+        <div class="clearfix"></div>
+        <br/>
+    </div>
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Row</th>
+                    <th scope="col">FullName</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in people" v-bind:key="item.id">
+                    <th scope="row">{{index+1}}</th>
+                    <td>{{item?.fullName}}</td>
+                    <td>{{item?.age}}</td>
+                    <td>{{item?.count}}</td>
+                    <td>{{item?.description}}</td>
+                    <td>
+                        <button type="button" @@click="AddBasket(item)">Add to basket</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center" v-if="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <ul class="list-group">
+            <li
+                class="list-group-item"
+                v-for="(item,index) in itemBasket"
+                v-bind:key="item.id">{{item?.fullName}}</li>
+        </ul>
+    </div>
+</div>
+</div>
+@section Vues{
+<script>
+    const allOfPeople = [
+        {
+            id: 1,
+            fullName: `Full Name (1)`,
+            age: 16,
+            description: `Description (1)`,
+            count: 1,
+        }, {
+            id: 2,
+            fullName: `Full Name (2)`,
+            age: 27,
+            description: `Description (2)`,
+            count: 1,
+        }, {
+            id: 3,
+            fullName: `Full Name (3)`,
+            age: 21,
+            description: `Description (3)`,
+            count: 1,
+        }, {
+            id: 4,
+            fullName: `Full Name (4)`,
+            age: 19,
+            description: `Description (4)`,
+            count: 1,
+        }
+    ]
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            loading: true,
+            people: [],
+            itemBasket: [],
+            title: `Hello`
+        },
+        created: function (){
+            this.people = allOfPeople;
+            this.loading = false
+        },
+        methods: {
+            CountBasket: function () {
+                let total = 0;
+                this.people.forEach(item => {
+                    total += item.count
+                });
+                return total
+            },
+            AddBasket: function (item) {
+                    this.itemBasket.push(item)
+                    item.count += 1
+            }
+        }
+    })
+</script>
+}

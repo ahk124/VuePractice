@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <div v-text="message1"></div>
+        <div v-html="message1"></div>
+        <hr/>
+        <div v-text="message2"></div>
+        <div v-html="message2"></div>
+        <hr/>
+        <img v-bind:src="MyImage.src" v-bind:alt="MyImage.alt"/>
+        <hr/>
+        <img :src="MyImage.src" :alt="MyImage.alt"/>
+    </div>
+</div>
+@section Vues{
+    <script>
+    const app=new Vue({
+        el:`#app`,
+        data:{
+            message1:`Hello`,
+            message2:`<p>Hello</p>`,
+            MyImage:{
+                src:`/Images/photo_2020-07-29_11-40-39.jpg`,
+                alt:`My images`
+            }
+        },
+    })
+    </script>
+}

@@ -1,0 +1,113 @@
+<div >
+     <div class="row">
+         <div class="col-md-12">
+             <button class="btn btn-primary" @@click="showForm()" type="button"> Show Form</button>
+         </div>
+     </div>
+</div>
+@section Vues{
+<script>
+    const config = {
+        headers: {
+            'Content-Type': `application/json`
+        }
+    };
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            loading:false,
+            title: `Hello`,
+            message: null,
+            person: {
+                firstname: null,
+                lastname: null
+            }
+        },
+        methods: {
+            doSomething : function () {
+                 this.loading=true
+                let url = `/ApiAdmin`
+                axios.post(url, this.person, config)
+                    .then(response => {
+                        this.message = response.data.message
+                    })
+                    .catch(err=>{ console.log(err) })
+                    .finally(()=>{
+                        this.loading=false
+                    })
+            },
+            showForm:function(){
+                $('#myModal').modal({keyboard: false,backdrop:false})
+            }
+        }
+    })
+</script>
+}
+@section Modals{
+<div class="modal" id="myModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <div v-if="loading">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-info" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div>{{message}}</div>
+         <form >
+                <div class="form-group">
+                    <label for="inputFirstName" >First Name</label>
+                    <input
+                        :disabled="loading"
+                        type="text"
+                        class="form-control"
+                        id="inputFirstName"
+                        v-model="person.firstname" />
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName">Last Name</label>
+                    <input
+                        :disabled="loading"
+                        type="text"
+                        class="form-control"
+                        id="inputLastName"
+                        v-model="person.lastname" />
+                 </div>
+            
+            </form>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @@click="doSomething()" v-if="!loading">Submit</button>
+                <button class="btn btn-primary" type="button" disabled="disabled" v-else>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{title}}</h1>
+        <br/>
+        <br/>
+        <h3 v-on:click="doSomething">Click me</h3>
+        <h3 v-on:click="doSomething()">Click me</h3>
+        <h3 @@click="doSomething">Click me</h3>
+        <h3 @@click="doSomething()">Click me</h3>
+        <br/>
+        <input placeholder="write somethong" @@change="doSomething"/>
+    </div>
+</div>
+@section Vues{
+    <script>
+    const app=new Vue({
+        el:`#app`,
+        data:{
+            title:`Learn 02`,
+            message1:`Hello`,
+            message2:`<p>Hello</p>`,
+            MyImage:{
+                src:`/Images/photo_2020-07-29_11-40-39.jpg`,
+                alt:`My images`
+            }
+        },
+        methods:{
+            myalert:function(v){
+                alert(v)
+            },
+            doSomething:function(){
+                    this.myalert(`Hi jakesh`)
+            },
+        }
+    })
+    </script>
+}
+

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <input type="text" v-model="x"/>
+        <input type="text" v-model="y"/>
+        <br/>
+        {{z}}
+        <br/>
+        <button @@click="doSomething">click me</button>
+        <br/>
+        {{t}}
+    </div>
+</div>
+@section Vues{
+<script>
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            x: 10,
+            y: 20,
+            t: 30
+        },
+        methods: {
+          doSomething: function () {
+                this.t++
+            }
+        },
+        computed: {
+           z: function () {
+                let result=0
+                result= this.x + this.y
+                return result
+            },
+        }
+    })
+</script>
+}

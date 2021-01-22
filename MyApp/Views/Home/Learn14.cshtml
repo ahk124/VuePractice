@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+     <h3>{{title}} </h3>
+     <br />
+     <dtx-external-component :external-message="message"></dtx-external-component>
+     <br />
+     <dtx-convert-currency :dollar="dollar1" :rate="290000"></dtx-convert-currency>
+     <dtx-convert-currency :dollar="dollar2" ></dtx-convert-currency>
+     <dtx-convert-currency :dollar="dollar3" :rate="210000"></dtx-convert-currency>
+     <dtx-convert-currency :dollar="dollar4" ></dtx-convert-currency>
+     <dtx-convert-currency :dollar="dollar5" :rate="30000"></dtx-convert-currency>
+     </div>
+</div>
+@section Vues{
+<script>
+    Vue.component(`dtx-external-component`,{
+        props:[`externalMessage`],
+        template:
+            `<div>
+                {{externalMessage}}  my name is  {{internalMessage}}
+            </div>`
+        ,
+        data:function(){
+            return({
+                internalMessage:"Amir Joon"
+            })
+        }
+    })
+    Vue.component(`dtx-convert-currency`,{
+        props:[`dollar`,'rate'],
+        data:function(){
+            return({
+                rial:null,
+                newrate:this.rate
+            })
+        },
+        created:function(){
+            if(this.newrate==undefined){
+                this.newrate=4200
+            }
+        },
+        template:`<div>
+            {{dollar}}
+               <button type="button" class="btn btn-primary" @@click="convert()" >Submit</button>
+               <span v-if="rial">
+                   <b>{{rial}}  rial  {{newrate}}  rate
+                </span>`
+        ,methods:{
+            convert:function(){
+                this.rial=this.newrate*this.dollar
+            }
+        }
+    })
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            message:null,
+            title: `Internal Value`,
+            dollar1:120,
+            dollar2:130,
+            dollar3:150,
+            dollar4:160,
+            dollar5:170,
+            dollar6:180,
+        },
+        created:function(){
+            this.message=`Hello`
+        }
+    })
+</script>
+}
+

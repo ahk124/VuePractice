@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12">
+        <select v-model="selectContries1">
+            <option v-for="item in countries" :value="item">{{item}}</option>
+        </select>
+        {{selectContries1}}
+
+        <hr/>
+
+        <select v-model="selectContries2">
+            <option :value="null">Select an item</option>
+            <option v-for="item in countries" :value="item">{{item}}</option>
+        </select>
+
+        {{selectContries2}}
+
+        <hr/>
+
+        <select v-model="selectContries3">
+            <option :value="null">Select an item</option>
+            <option v-for="item in cities" :key="item.id" :value="item">{{item.name}}</option>
+        </select>
+
+        {{selectContries3?.id}}
+        {{selectContries3?.name}}
+
+        <hr/>
+
+        <select v-model="selectContries4">
+            <option :value="null">Select an item</option>
+            <option v-for="item in cities" :key="item.id" :value="item">{{item.name}}</option>
+        </select>
+
+        {{selectContries4?.id}}
+        {{selectContries4?.name}}
+        <hr/>
+
+        <select v-model="selectRole0">
+            <option :value="null">Select an item</option>
+            <option v-for="item in roles" :key="item.id" :value="item.id">{{item.name}}</option>
+        </select>
+
+        {{selectRole0}}
+    </div>
+</div>
+@section Vues{
+    <script>
+    const app=new Vue({
+        el:`#app`,
+        data:{
+            roles:[{id:1,name:`User`},{id:2,name:`Editor`},{id:3,name:`Admin`},{id:4,name:`SuperVisor`}],
+            countries:[`America`,`Israel`,`England`,`France`,`Germany`],
+            cities:[{id:1,name:`amia`},{id:2,name:`marcin`},{id:3,name:`joe`},{id:4,name:`clara`}],
+            selectContries1:`Israel`,
+            selectContries2:null,
+            selectContries3:null,
+            selectContries4:null,
+            selectRole0:null,
+        },
+        created:function(){
+            this.selectContries4=this.cities[1]
+             this.selectRole0=this.roles[1].id
+        }
+    })
+    </script>
+}

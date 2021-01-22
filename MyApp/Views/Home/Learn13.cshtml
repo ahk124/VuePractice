@@ -1,0 +1,175 @@
+<div class="row">
+    <div class="col-md-12">
+        {{title}}
+        <hr/>
+            <ul>
+                <todo-item v-for="item of todos" :key="item.id" :todo="item"> </todo-item> 
+                @* :key="item.id"  for performance loop*@
+            </ul> 
+             <display-header :mytitle="headerTitle"></display-header>
+             <display-text ></display-text>
+             <br/>
+             <dtx-header :message="'Hi Kosakesha'"></dtx-header>
+             <dtx-error-message :result="result"></dtx-error-message>
+              <dtx-information-message :result="result"></dtx-information-message>
+              <br />
+                    <form >
+                <div class="form-group">
+                    <label for="inputFirstName" >First Name</label>
+                    <input
+                        :disabled="loading"
+                        type="text"
+                        class="form-control"
+                        id="inputFirstName"
+                        v-model="person.firstname" />
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName">Last Name</label>
+                    <input
+                        :disabled="loading"
+                        type="text"
+                        class="form-control"
+                        id="inputLastName"
+                        v-model="person.lastname" />
+                 </div>
+            	<button type="button" class="btn btn-primary" v-on:click="doSomething()">Do Something</button>
+            </form>
+
+    </div>
+</div>
+@section Modals{
+    <dtx-modal></dtx-modal>
+}
+@section Vues{
+<script>
+    Vue.component(`display-text`, {
+        template: `<template>Hello Jakesh</template>`
+    })
+    Vue.component(`todo-item`, {
+        props: [`todo`],
+        template: `<li>{{todo.id}}  -   {{todo.text}}</li>`
+    })
+    Vue.component(`display-header`,{
+        props:[`mytitle`],
+        template:`<h3>{{mytitle}}</h3>`
+    })
+    Vue.component(`dtx-header`,{
+        props:[`message`],
+        template:`<h3>{{message}} </h3>`
+    })
+    Vue.component(`dtx-error-message`,{
+        props:[`result`],
+        template:
+        `<div class="alert alert-danger" v-if="result?.errorMessage?.lenght >0 ">
+            <ul>
+                <li v-for="item in result.errorMessage">
+                    {{item}}
+                </li>
+            </ul>
+        </div>`
+    })
+        Vue.component(`dtx-information-message`,{
+        props:[`result`],
+        template:
+        `<div class="alert alert-info" v-if="result?.informationMessage?.lenght >0 ">
+            <ul>
+                <li v-for="item in result.informationMessage">
+                    {{item}}
+                </li>
+            </ul>
+        </div>`
+    })
+     Vue.component(`dtx-modal`,{
+        props:[`message`],
+        template:`
+        <div class="modal" id="myModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title">Loading ...</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                    <p class="text-danger">
+                        Please wait ..
+                    </p>
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @@click="doSomething()" v-if="!loading">Submit</button>
+                    <button class="btn btn-primary" type="button" disabled="disabled" v-else>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                     </button>
+                 </div>
+                </div>
+            </div>
+        </div>`
+    })
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            result:null,
+            title: `Hello`,
+            headerTitle:`My Title`,
+            person: {
+					lastname: null,
+					firstname: null,
+				},
+            todos: [
+                {
+                    id: 1,
+                    text: `learn css 3`
+                }, {
+                    id: 2,
+                    text: `learn html 5`
+                }, {
+                    id: 3,
+                    text: `learn java script`
+                }
+            ]
+        },
+        mounted() {
+          
+        },
+        methods:{
+                myalert: function(x) {alert(x)},
+            	doSomething: function () {
+
+					this.result = null
+
+					$(`div#loadingModal`).modal({ backdrop: false, keyboard: false, })
+
+					let url =
+						`/NewLearning/GetPersonDetails_3`
+
+					axios.post(url, this.person)
+
+						.then(response => {
+
+							this.result = response.data
+
+							this.result.hiddenMessages.forEach(item => {
+
+								console.log(item)
+
+							})
+
+						})
+						.catch(error => {
+
+							console.error(error)
+
+						})
+						.finally(() => {
+
+							$(`div#loadingModal`).modal(`hide`)
+
+						})
+
+				},
+        }
+    })
+</script>
+}

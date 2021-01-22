@@ -1,0 +1,140 @@
+<div class="row">
+    <div class="form-group ml-3">
+        <label for="exampleFormControlSelect1">Filter by role</label>
+        <select
+            v-model="selectedRole"
+            class="form-control"
+            id="exampleFormControlSelect1">
+            <option :value="null">Select and Item</option>
+            <option v-for="item in getUniqeRoles" :key="item.id" :value="item">{{item}}</option>
+        </select>
+    </div>
+</div>
+
+<hr/>
+<div class="row">
+    <div
+        class="col-md-3 col-sm-6 mt-3"
+        v-for="item in people"
+        :key="item.id"
+        v-if="selectedRole==null || item.role==selectedRole">
+        <div class="card ">
+            <div
+                class="card-header text-white"
+                :class="[item.displayDetails ? cssClass1 : cssClass2 ]"
+                @@click="toggleDisplayDetails(item)">{{item.fullName}}</div>
+            <div class="card-body" v-show="item.displayDetails">
+                <p class="card-text">{{item.id}}</p>
+                <p class="card-text">{{item.role}}</p>
+                <p class="card-text">{{item.age}}</p>
+            </div>
+            <div
+                class="card-footer text-white bg-primary"
+                v-if="item.description"
+                v-show="item.displayDetails">
+                {{item.description}}
+            </div>
+        </div>
+    </div>
+</div>
+@section Vues{
+<script>
+    const allOfPeople = [
+        {
+            id: 1,
+            fullName: `Full Name (1)`,
+            age: 16,
+            role: `user`,
+            description: `Description (1)`
+        }, {
+            id: 2,
+            fullName: `Full Name (2)`,
+            age: 27,
+            role: `manager`,
+            description: `Description (2)`
+        }, {
+            id: 3,
+            fullName: `Full Name (3)`,
+            age: 21,
+            role: `admin`,
+        }, {
+            id: 4,
+            fullName: `Full Name (4)`,
+            age: 17,
+            role: `editor`,
+            description: `Description (4)`
+        }, {
+            id: 5,
+            fullName: `Full Name (5)`,
+            age: 16,
+            role: `admin`,
+        }, {
+            id: 6,
+            fullName: `Full Name (6)`,
+            age: 32,
+            role: `editor`,
+            description: `Description (6)`
+        }, {
+            id: 7,
+            fullName: `Full Name (7)`,
+            age: 30,
+            role: `manager`,
+            description: `Description (7)`
+        }, {
+            id: 8,
+            fullName: `Full Name (8)`,
+            age: 22,
+            role: `editor`,
+        }, {
+            id: 9,
+            fullName: `Full Name (9)`,
+            age: 15,
+            role: `admin`,
+            description: `Description (9)`
+        }, {
+            id: 10,
+            fullName: `Full Name (10)`,
+            age: 10,
+            role: `user`,
+        }, {
+            id: 11,
+            fullName: `Full Name (11)`,
+            age: 23,
+            role: `manager`,
+            description: `Description (11)`
+        }
+    ]
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            selectedRole:null,
+            people:allOfPeople,
+            cssClass1:`bg-secondary`,
+            cssClass2:`bg-info`,
+            cssClassOpened:false
+        },
+        created:function(){
+            this.people.forEach(item => {
+                Vue.set(item,`displayDetails`,true)
+            });
+        },
+        methods:{
+            toggleDisplayDetails:function(item){
+                item.displayDetails= !item.displayDetails;
+            },
+           
+        },
+        computed:{
+             getUniqeRoles:function(){
+                const roles=[]
+                this.people.forEach(item => {
+                    if(roles.includes(item.role)==false)
+                        roles.push(item.role)
+                });
+                return roles
+            }
+        }
+    })
+</script>
+}

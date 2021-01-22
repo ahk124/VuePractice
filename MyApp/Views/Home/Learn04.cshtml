@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <input v-model="title" type="text"/>
+        <br/>
+        <input v-bind="title" type="text"/>
+        <br/>
+        {{title}}
+        <br/>
+        full name is :
+        {{person.fullName}}
+    </div>
+</div>
+@section Scripts{
+    <script>
+    const app=new Vue({
+        el:`#app`,
+        data:{
+            title:`Hello`,
+            person:{
+                fullName:null
+            }
+        },
+    })
+    </script>
+}

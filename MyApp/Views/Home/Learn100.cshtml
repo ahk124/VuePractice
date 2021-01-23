@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        {{title}}
+        <input type="text" v-model="name" value="arsam">
+        <br />
+        <button class="btn btn-primary" v-on:click="doSomeThing1()">do something 1</button>
+        <br />
+        <button class="btn btn-primary" v-on:click="doSomeThing2()">do something 2</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" placeholder="Enter First Name" id="firstName"
+                    v-model="person.firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" placeholder="Enter Last Name" id="lastName"
+                    v-model="person.lastName">
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Remember me
+                </label>
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="doSomeThing3()">Submit</button>
+        </form>
+    </div>
+</div>
+
+@section Vues{
+<script>
+    const config = {
+        headers: {
+            'Content-Type': `application/json`
+        }
+    };
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            name: null,
+            person: {
+                firstName: null,
+                lastName: null
+            }
+        },
+        methods: {
+            doSomeThing1: function () {
+                let url = `/api/apiadmin/`
+                axios.get(url)
+                    .then(response => {
+                        console.clear();
+                        console.log(`doSomeThing1`)
+                        console.log(response)
+                        alert(response.data.message)
+                    })
+                    .catch(error => {
+                        console.clear();
+                        console.log(error)
+                    })
+                    .finaly(() => {
+                        console.log(`finaly 1`)
+                    })
+            },
+            doSomeThing2: function () {
+                let url = `/api/apiadmin/GetByName/${this.name}`
+                axios.get(url)
+                    .then(response => {
+                        console.clear();
+                        console.log(`doSomeThing2`)
+                        console.log(response)
+                        alert(response.data.message)
+                    })
+                    .catch(error => {
+                        console.clear();
+                        console.log(error)
+                    })
+                    .finaly(() => {
+                        console.log(`finaly 2`)
+                    })
+            },
+            doSomeThing3: function () {
+                let url = `/api/apiadmin/PostMyData`
+                var postData = { firstName: this.person.firstName, lastName: this.person.lastName }
+                axios.post(url, postData, config)
+                    .then(response => {
+                        console.clear();
+                        console.log(`doSomeThing 3`)
+                        console.log(response)
+                        alert(response.data.message)
+                    })
+                    
+            }
+        },
+    }) 
+</script>
+}

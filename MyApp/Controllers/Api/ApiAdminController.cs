@@ -12,23 +12,34 @@ namespace MyApp.Controllers.Api
     [ApiController]
     public class ApiAdminController : ControllerBase
     {
-            [HttpGet]
+        [HttpGet]
         public  IActionResult Get()
         {
-            return Ok("get");
+            var data=new {Message="Hello angal"};
+            return Ok(data);
         }
 
         [HttpGet("GetByName/{name}")]
         public IActionResult GetByName(string name)
         {
-             return Ok($"name is : {name.ToString()}");
+            var data=new {Message=$"name is : {name.ToString()}"};
+             return Ok(data);
         }
 
         [HttpGet("GetById/{Id}")]
         public IActionResult GetById(int Id)
         {
-            return Ok($"id is : {Id.ToString()}");
+            var data=new {Message=$"id is : {Id.ToString()}"};
+            return Ok(data);
         } 
+
+        [HttpPost("PostMyData")]
+        public IActionResult PostMyData([FromBody] MyViewModel model)
+        {
+            Thread.Sleep(3000);
+
+            return Ok(new { Message = $"{model.FirstName}       {model.LastName}" });
+        }
 
         [HttpPost]
         public IActionResult Post([FromBody] MyViewModel model)

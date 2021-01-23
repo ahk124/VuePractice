@@ -113,7 +113,9 @@
             result:null,
             title: `Hello`,
             headerTitle:`My Title`,
+            loading:false,
             person: {
+                
 					lastname: null,
 					firstname: null,
 				},
@@ -142,7 +144,7 @@
 					$(`div#loadingModal`).modal({ backdrop: false, keyboard: false, })
 
 					let url =
-						`/NewLearning/GetPersonDetails_3`
+						`/api/NewLearning/GetPersonDetails_3`
 
 					axios.post(url, this.person)
 

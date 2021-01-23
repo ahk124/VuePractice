@@ -2,30 +2,27 @@
     <div class="col-md-12">
         {{title}}
     </div>
-            <label for="inputFirstName">Write a message</label>
-            <input
-                type="text"
-                id="inputFirstName"
-                v-model="person.firstname"/>
-        </div>
-        <br/>
-        <display-input-message :external-message="person"></display-input-message>
-   
+    <label for="inputFirstName">Write a message</label>
+    <input type="text" id="inputFirstName" v-model="person.firstname" />
+</div>
+<br />
+<display-input-message :external-message="person"></display-input-message>
+
 
 </div>
 
 @section Vues{
-<script> 
-     Vue.component(`display-input-message`,{
-        props:['externalMessage'],
-        data: function() {
+<script>
+    Vue.component(`display-input-message`, {
+        props: ['externalMessage'],
+        data: function () {
 
-				return ({
+            return ({
 
-				})
+            })
 
-			},
-        template:`
+        },
+        template: `
         <div>
         <input type="text" v-model="externalMessage.firstname"/>
         <br/>
@@ -33,14 +30,14 @@
         </div>`
     })
     const app = new Vue({
-    el: `#app`,
-    data: {
-        title: `Hello`,
-        message:null,
-        person:{
-            firstname:`Amir Joon`
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            message: null,
+            person: {
+                firstname: `Amir Joon`
+            }
         }
-    }
-}) 
+    }) 
 </script>
 }

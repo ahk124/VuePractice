@@ -131,5 +131,9 @@ namespace MyApp.Controllers
         {
             return View();
         }
+         public IActionResult Component01()
+        {
+            return View();
+        }
     }
 }

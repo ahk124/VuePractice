@@ -33,7 +33,25 @@ namespace MyApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        public IActionResult ComponentTest01()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+           public IActionResult ComponentTest02()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+               public IActionResult ComponentTest03()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+          public IActionResult Component01()
+        {
+            return View();
+        }
         public IActionResult Learn00()
         {
             //TODO: Implement Realistic Implementation
@@ -131,9 +149,6 @@ namespace MyApp.Controllers
         {
             return View();
         }
-         public IActionResult Component01()
-        {
-            return View();
-        }
+      
     }
 }

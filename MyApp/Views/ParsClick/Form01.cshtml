@@ -1,0 +1,28 @@
+@model MyViewModel
+<form asp-controller="ParsClick" v-on:submit.prevent="doSomeThing()" asp-antiforgery="true"> 
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input type="text" v-model="myViewModel.firstName" class="form-control"  asp-for="FirstName">
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+@section Vues{
+<script>
+    const app = new Vue({
+        el: `#app`,
+        data: {
+            title: `Hello`,
+            myViewModel:{
+                firstName:null,
+                lastName:null
+            }
+        },
+        methods:{
+            doSomeThing:function(e){
+                alert(this.myViewModel.firstName)
+            }
+        }
+    }) 
+</script>
+}

@@ -1,27 +1,21 @@
 <div class="row">
     <div class="col-md-12">
      {{title}} 
-     <my_component v-on:button_clicked="internalButtonClicked($event)"></my_component>
+     <input type="text" v-model="title"/>
+     <my_component v-bind:my_input="title" v-on:value_update="title=$event"></my_component>
      </div>
 </div>
 @section Vues{
 <script> 
       Vue.component(`my_component`, {
-        props:[`title`],
-        data:function(){
-			return({
-            message:`amiram  koni jakesh`,
-            firstName:`amir`,
-            lastName:`koskhol` 
-			})
-		},
+        props:[`my_input`],
         template: `<div>
-            <input type="text" v-model="message"/>
-            <button v-on:click="doSomething()">Click Me</button></div>`,
+            <input type="text" v-bind:value="my_input" v-on:input="doSomething($event.target.value)"/>
+            </div>`,
         methods:{
-            doSomething:function(){
+            doSomething:function(e){
                 let result={first:this.firstName,last:this.lastName}
-                this.$emit(`button_clicked`,result)
+                this.$emit(`value_update`,e)
             }
         }
     })
@@ -34,6 +28,9 @@
     methods:{
         internalButtonClicked:function(myInput){
             alert(`yes clicked me ${myInput.first + "  ---  "+myInput.last}`)
+        },
+        updateTitle:function(e){
+            this.title=e
         }
     }
 }) 

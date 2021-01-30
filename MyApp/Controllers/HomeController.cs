@@ -38,17 +38,32 @@ namespace MyApp.Controllers
             //TODO: Implement Realistic Implementation
             return View();
         }
-           public IActionResult ComponentTest02()
+        public IActionResult ComponentTest02()
         {
             //TODO: Implement Realistic Implementation
             return View();
         }
-               public IActionResult ComponentTest03()
+        public IActionResult ComponentTest03()
         {
             //TODO: Implement Realistic Implementation
             return View();
         }
-          public IActionResult Component01()
+        public IActionResult ComponentTest04()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+         public IActionResult ComponentTest05()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+          public IActionResult ComponentTest06()
+        {
+            //TODO: Implement Realistic Implementation
+            return View();
+        }
+        public IActionResult Component01()
         {
             return View();
         }
@@ -149,6 +164,6 @@ namespace MyApp.Controllers
         {
             return View();
         }
-      
+
     }
 }

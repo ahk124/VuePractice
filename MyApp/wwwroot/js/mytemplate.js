@@ -8,3 +8,6 @@ Vue.component(`my-counter`, {
     },
     template: `#counter-template`
 })
+<template>
+
+</template>
